@@ -75,7 +75,7 @@ public class MainActivity extends ActionBarActivity implements
     /**
      * Provides the entry point to Google Play services.
      */
-    //protected GoogleApiClient mGoogleApiClient;
+    //--> protected GoogleApiClient mGoogleApiClient;
 
     /**
      * Used when requesting or removing activity detection updates.
@@ -140,7 +140,7 @@ public class MainActivity extends ActionBarActivity implements
         mDetectedActivitiesListView.setAdapter(mAdapter);
 
         // Kick off the request to build GoogleApiClient.
-        //buildGoogleApiClient();
+        //--> buildGoogleApiClient();
     }
 
     /**
@@ -148,25 +148,23 @@ public class MainActivity extends ActionBarActivity implements
      * ActivityRecognition API.
      */
     protected synchronized void buildGoogleApiClient() {
-       /* mGoogleApiClient = new GoogleApiClient.Builder(this)
+       /* --> mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(ActivityRecognition.API)
-                .build();*/
+                .build(); */
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        startService(new Intent(this, ActivityService.class));
-        //mGoogleApiClient.connect();
+        //--> mGoogleApiClient.connect();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        stopService(new Intent(this, ActivityService.class));
-        //mGoogleApiClient.disconnect();
+        //--> mGoogleApiClient.disconnect();
     }
 
     @Override
@@ -205,7 +203,7 @@ public class MainActivity extends ActionBarActivity implements
         // The connection to Google Play services was lost for some reason. We call connect() to
         // attempt to re-establish the connection.
         Log.i(TAG, "Connection suspended");
-        //mGoogleApiClient.connect();
+        //--> mGoogleApiClient.connect();
     }
 
     /**
@@ -218,7 +216,7 @@ public class MainActivity extends ActionBarActivity implements
      * activities are detected.
      */
     public void requestActivityUpdatesButtonHandler(View view) {
-        /*if (!mGoogleApiClient.isConnected()) {
+        /*--> if (!mGoogleApiClient.isConnected()) {
             Toast.makeText(this, getString(R.string.not_connected),
                     Toast.LENGTH_SHORT).show();
             return;
@@ -228,7 +226,7 @@ public class MainActivity extends ActionBarActivity implements
                 Constants.DETECTION_INTERVAL_IN_MILLISECONDS,
                 getActivityDetectionPendingIntent()
         );
-        //.setResultCallback(this);
+        //--> .setResultCallback(this);
         this.onResult(new Status(-1, ""));
     }
 
@@ -242,7 +240,7 @@ public class MainActivity extends ActionBarActivity implements
      * detected activities.
      */
     public void removeActivityUpdatesButtonHandler(View view) {
-        /*if (!mGoogleApiClient.isConnected()) {
+        /*--> if (!mGoogleApiClient.isConnected()) {
             Toast.makeText(this, getString(R.string.not_connected), Toast.LENGTH_SHORT).show();
             return;
         }*/
@@ -251,7 +249,7 @@ public class MainActivity extends ActionBarActivity implements
         MyActivityRecognition.ActivityRecognitionApi.removeActivityUpdates(
                 getApplicationContext(), //mGoogleApiClient,
                 getActivityDetectionPendingIntent()
-        ); //.setResultCallback(this);
+        ); //--> .setResultCallback(this);
         this.onResult(new Status(-1, ""));
     }
 
