@@ -24,7 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.gms.location.DetectedActivity;
+import org.harservice.android.common.HumanActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,16 +34,16 @@ import java.util.HashMap;
  * detected_activity layout and populates each element with data from a DetectedActivity
  * object.
  */
-public class DetectedActivitiesAdapter extends ArrayAdapter<DetectedActivity> {
+public class DetectedActivitiesAdapter extends ArrayAdapter<HumanActivity> {
 
     public DetectedActivitiesAdapter(Context context,
-                                     ArrayList<DetectedActivity> detectedActivities) {
+                                     ArrayList<HumanActivity> detectedActivities) {
         super(context, 0, detectedActivities);
     }
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        DetectedActivity detectedActivity = getItem(position);
+        HumanActivity detectedActivity = getItem(position);
         if (view == null) {
             view = LayoutInflater.from(getContext()).inflate(
                     R.layout.detected_activity, parent, false);
@@ -68,9 +68,9 @@ public class DetectedActivitiesAdapter extends ArrayAdapter<DetectedActivity> {
      *
      * @param detectedActivities the freshly detected activities
      */
-    protected void updateActivities(ArrayList<DetectedActivity> detectedActivities) {
-        HashMap<Integer, Integer> detectedActivitiesMap = new HashMap<>();
-        for (DetectedActivity activity : detectedActivities) {
+    protected void updateActivities(ArrayList<HumanActivity> detectedActivities) {
+        HashMap<HumanActivity.Type, Integer> detectedActivitiesMap = new HashMap<>();
+        for (HumanActivity activity : detectedActivities) {
             detectedActivitiesMap.put(activity.getType(), activity.getConfidence());
         }
         // Every time we detect new activities, we want to reset the confidence level of ALL
@@ -78,12 +78,12 @@ public class DetectedActivitiesAdapter extends ArrayAdapter<DetectedActivity> {
         // of a DetectedActivity, we use a temporary list of DetectedActivity objects. If an
         // activity was freshly detected, we use its confidence level. Otherwise, we set the
         // confidence level to zero.
-        ArrayList<DetectedActivity> tempList = new ArrayList<DetectedActivity>();
+        ArrayList<HumanActivity> tempList = new ArrayList<>();
         for (int i = 0; i < Constants.MONITORED_ACTIVITIES.length; i++) {
             int confidence = detectedActivitiesMap.containsKey(Constants.MONITORED_ACTIVITIES[i]) ?
                     detectedActivitiesMap.get(Constants.MONITORED_ACTIVITIES[i]) : 0;
 
-            tempList.add(new DetectedActivity(Constants.MONITORED_ACTIVITIES[i],
+            tempList.add(new HumanActivity(Constants.MONITORED_ACTIVITIES[i],
                     confidence));
         }
 
@@ -92,6 +92,9 @@ public class DetectedActivitiesAdapter extends ArrayAdapter<DetectedActivity> {
 
         // Adding the new list items using {@link Adapter#addAll} notifies attached observers that
         // the underlying data has changed and views reflecting the data should refresh.
-        this.addAll(tempList);
+        //this.addAll(tempList);
+        for (HumanActivity ha: tempList) {
+            this.add(ha);
+        }
     }
 }

@@ -19,7 +19,7 @@ package com.android.fpuna.activityrecognition;
 import android.content.Context;
 import android.content.res.Resources;
 
-import com.google.android.gms.location.DetectedActivity;
+import org.harservice.android.common.HumanActivity;
 
 /**
  * Constants used in this sample.
@@ -53,38 +53,32 @@ public final class Constants {
     /**
      * List of DetectedActivity types that we monitor in this sample.
      */
-    protected static final int[] MONITORED_ACTIVITIES = {
-            DetectedActivity.STILL,
-            DetectedActivity.ON_FOOT,
-            DetectedActivity.WALKING,
-            DetectedActivity.RUNNING,
-            DetectedActivity.ON_BICYCLE,
-            DetectedActivity.IN_VEHICLE,
-            DetectedActivity.TILTING,
-            DetectedActivity.UNKNOWN
+    protected static final HumanActivity.Type[] MONITORED_ACTIVITIES = {
+            HumanActivity.Type.STILL,
+            HumanActivity.Type.WALKING,
+            HumanActivity.Type.RUNNING,
+            HumanActivity.Type.ON_BICYCLE,
+            HumanActivity.Type.IN_VEHICLE,
+            HumanActivity.Type.UNKNOWN
     };
 
     /**
      * Returns a human readable String corresponding to a detected activity type.
      */
-    public static String getActivityString(Context context, int detectedActivityType) {
+    public static String getActivityString(Context context, HumanActivity.Type detectedActivityType) {
         Resources resources = context.getResources();
         switch(detectedActivityType) {
-            case DetectedActivity.IN_VEHICLE:
+            case IN_VEHICLE:
                 return resources.getString(R.string.in_vehicle);
-            case DetectedActivity.ON_BICYCLE:
+            case ON_BICYCLE:
                 return resources.getString(R.string.on_bicycle);
-            case DetectedActivity.ON_FOOT:
-                return resources.getString(R.string.on_foot);
-            case DetectedActivity.RUNNING:
+            case RUNNING:
                 return resources.getString(R.string.running);
-            case DetectedActivity.STILL:
+            case STILL:
                 return resources.getString(R.string.still);
-            case DetectedActivity.TILTING:
-                return resources.getString(R.string.tilting);
-            case DetectedActivity.UNKNOWN:
+            case UNKNOWN:
                 return resources.getString(R.string.unknown);
-            case DetectedActivity.WALKING:
+            case WALKING:
                 return resources.getString(R.string.walking);
             default:
                 return resources.getString(R.string.unidentifiable_activity, detectedActivityType);
