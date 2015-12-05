@@ -21,15 +21,16 @@ import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import com.google.android.gms.location.ActivityRecognitionResult;
-import com.google.android.gms.location.DetectedActivity;
+
+import org.harservice.android.common.ActivityRecognitionResult;
+import org.harservice.android.common.HumanActivity;
 
 import java.util.ArrayList;
 
 /**
  *  IntentService for handling incoming intents that are generated as a result of requesting
  *  activity updates using
- *  {@link com.google.android.gms.location.ActivityRecognitionApi#requestActivityUpdates}.
+ *  {@link org.harservice.android.api.ActivityRecognitionApi#requestActivityUpdates}.
  */
 public class DetectedActivitiesIntentService extends IntentService {
 
@@ -62,11 +63,11 @@ public class DetectedActivitiesIntentService extends IntentService {
         // Get the list of the probable activities associated with the current state of the
         // device. Each activity is associated with a confidence level, which is an int between
         // 0 and 100.
-        ArrayList<DetectedActivity> detectedActivities = (ArrayList) result.getProbableActivities();
+        ArrayList<HumanActivity> detectedActivities = (ArrayList) result.getProbableActivities();
 
         // Log each activity.
         Log.i(TAG, "activities detected");
-        for (DetectedActivity da: detectedActivities) {
+        for (HumanActivity da: detectedActivities) {
             Log.i(TAG, Constants.getActivityString(
                             getApplicationContext(),
                             da.getType()) + " " + da.getConfidence() + "%"
